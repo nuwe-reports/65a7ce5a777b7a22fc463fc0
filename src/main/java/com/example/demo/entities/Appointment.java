@@ -33,7 +33,6 @@ public class Appointment {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm dd/MM/yyyy")
     private LocalDateTime finishesAt;
-
     public Appointment(){
         super();
     }

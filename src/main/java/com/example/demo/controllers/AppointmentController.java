@@ -55,8 +55,29 @@ public class AppointmentController {
         /** TODO 
          * Implement this function, which acts as the POST /api/appointment endpoint.
          * Make sure to check out the whole project. Specially the Appointment.java class
+         *
+         * First i search there is no other appointment as the one we introduce,
+         * then i confirm there is no other appointment at the same hour in the same room and with same doctor
+         * so i can create one in case it's not the same room and doctor but not if there are shared doctor or room
          */
-        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        if(appointment.getStartsAt().equals(appointment.getFinishesAt())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        List<Appointment> appointments = appointmentRepository.findAll();
+        if(!appointments.isEmpty()){
+            if(appointments.contains(appointment)){
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            for (Appointment a : appointments) {
+                if(!appointment.overlaps(a)){
+                    appointmentRepository.save(appointment);
+                    return new ResponseEntity<>(HttpStatus.OK);
+                }
+                return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+        appointmentRepository.save(appointment);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
