@@ -60,7 +60,7 @@ class AppointmentControllerUnitTest{
 
         mockMvc.perform(post("/api/appointment").contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(appointment)))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()); //TODO The status expected should be 201 isCreated();
                 
     }
 
