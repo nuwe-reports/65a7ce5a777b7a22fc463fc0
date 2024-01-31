@@ -41,7 +41,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Make sure to be as exhaustive as possible. Coverage is checked ;)
  */
 
-@WebMvcTest(RoomController.class)
+@WebMvcTest(DoctorController.class)
 class DoctorControllerUnitTest{
 
     @MockBean
